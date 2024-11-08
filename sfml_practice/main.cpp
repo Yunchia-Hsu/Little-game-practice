@@ -1,13 +1,13 @@
 
-#include "game_class.hpp"
 
+#include "game_class.hpp"
+#include <SFML/Graphics.hpp>
 
 Game::Game()
 {
     this->initVariables();
     this->initWindow();
     this->initenemies();
-
 }
 
 Game::~Game()
@@ -102,7 +102,7 @@ void Game::pollEvents()
     {
         if (this->mouseHeld == false)
         {
-            this->mouseHeld == true;
+            this->mouseHeld = true;
             bool deleted = false;
             for (int i = 0; i < this->enemies.size() && deleted == false; i++)
             {
@@ -118,9 +118,7 @@ void Game::pollEvents()
             }
         }
         else 
-            this->mouseHeld == false;
-        
-
+            this->mouseHeld = false;
         
     }
     
@@ -262,3 +260,5 @@ int main()
 }
 
 //  g++ -std=c++11 main.cpp -o my_sfml_game -I/usr/local/opt/sfml/include -L/usr/local/opt/sfml/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+//g++ -std=c++11 main.cpp -o my_sfml_game -I/usr/local/opt/sfml/include -L/usr/local/opt/sfml/lib -lsfml-graphics -lsfml-window -lsfml-system
