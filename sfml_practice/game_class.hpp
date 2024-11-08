@@ -24,13 +24,18 @@ class Game
         float enemySpawnTimer;
         float enemySpawntimerMax;
         int maxEnemies;
-        int point;
+        unsigned points;
+        bool mouseHeld;
+        int health;
+        bool endgame;
 
         //game objects
         std::vector < sf::RectangleShape> enemies;
         sf::RectangleShape enemy;
+
         //mouse position
         sf::Vector2i mousePosWinow;
+        sf::Vector2f mousePosView;
 
         void initenemies();
         void initVariables();
@@ -55,7 +60,7 @@ class Game
 
         //accessors
         const bool running() const;
-
+        const bool getEndgame() const;
 
 };
 
