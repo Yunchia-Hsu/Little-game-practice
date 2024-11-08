@@ -1,0 +1,53 @@
+# 編譯產生的文件
+*.o
+*.obj
+*.exe
+*.out
+game
+
+# VS Code 配置目錄
+.vscode/
+.vs/
+
+# Mac 系統文件
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 臨時文件
+*.swp
+*~
+
+# 依賴庫和外部庫
+lib/
+libs/
+external/
+
+# 編譯輸出目錄
+build/
+debug/
+release/
+bin/
+obj/
+
+# CMake 生成的文件
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile.cmake
+
+# 其他IDE生成的文件
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.suo
+*.user
+
+# 日誌文件
+*.log
+
+# 環境配置文件
+.env
+
+# 特定於專案的忽略
+# 把你專案特定需要忽略的文件加在這裡
