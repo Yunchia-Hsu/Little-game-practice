@@ -20,7 +20,7 @@ Game::~Game()
 void Game::spawnEnemy()
 {
     /*
-        spawns enemies and sets their colors and positions
+        spawns enemies and sets their colors and positions spawns them at random pos and color
             set random pos
             set random color
             add enemy to the vector
@@ -36,8 +36,8 @@ void Game::spawnEnemy()
     switch(type)
     {
         case 0:
-            this->enemy.setSize(sf::Vector2f(10.f, 20.f));
-            this->enemy.setFillColor(sf::Color::Magenta);
+            this->enemy.setSize(sf::Vector2f(100.f, 80.f));
+            this->enemy.setFillColor(sf::Color(176, 167, 194));
             break;
         case 1:
             this->enemy.setSize(sf::Vector2f(30.f, 50.f));
@@ -48,7 +48,7 @@ void Game::spawnEnemy()
             this->enemy.setFillColor(sf::Color::Blue);
             break;
         case 3:
-            this->enemy.setSize(sf::Vector2f(100.f, 100.f));
+            this->enemy.setSize(sf::Vector2f(70.f, 60.f));
             this->enemy.setFillColor(sf::Color::Cyan);
             break;
         case 4:
@@ -62,7 +62,7 @@ void Game::spawnEnemy()
     }
 
 
-   this->enemy.setFillColor(sf::Color(176, 167, 194));
+   //this->enemy.setFillColor(sf::Color(176, 167, 194));
    //spawn enemy
    this->enemies.push_back(this->enemy);
     //move the enemies
@@ -142,12 +142,26 @@ void Game::pollEvents()
             {
                 if (this->enemies[i].getGlobalBounds().contains(this->mousePosView))
                 {
-                    //delete the enemy
-                    deleted = true;
-
-                    this->enemies.erase(this->enemies.begin() + i);
+                    
+                   
                     //gain points
-                    this->points += 1.f;
+                    if (this->enemies[i].getFillColor() == sf::Color(176, 167, 194))
+                        this->points += 100.f;
+                    else if (this->enemies[i].getFillColor() == sf::Color::Red)
+                        this->points += 10.f;
+                    else if (this->enemies[i].getFillColor() == sf::Color::Blue)
+                        this->points += 15.f;
+                    else if (this->enemies[i].getFillColor() == sf::Color::Cyan)
+                        this->points -= 10.f;
+                    else if (this->enemies[i].getFillColor() == sf::Color::Green)
+                        this->points += 20.f;
+                    else 
+                        this->points += 1.f;
+
+
+                     //delete the enemy
+                    deleted = true;
+                    this->enemies.erase(this->enemies.begin() + i);
                 }
             }
         }
