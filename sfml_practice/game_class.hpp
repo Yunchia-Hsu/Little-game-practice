@@ -9,6 +9,7 @@
 #include <iostream>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <sstream>
 
 /*
     classs that acts as the game engine
@@ -20,6 +21,12 @@ class Game
         sf::Event event;
         sf::VideoMode videoMode;
         
+        //resources
+        sf::Font font;
+
+        //text
+        sf::Text uiText;
+
         //game logic
         float enemySpawnTimer;
         float enemySpawntimerMax;
@@ -40,6 +47,8 @@ class Game
         void initenemies();
         void initVariables();
         void initWindow();
+        void initFonts();
+         void initText();
     public:
         //constructors / destructors
         Game();
@@ -50,10 +59,12 @@ class Game
 
         void update();
         void updateEnemies();
+        void updateText();
 
         void render();
         void renderEnemies();
-        
+        void renderText(sf::RenderTarget &target);//you can render to designated place
+
         void pollEvents();
         void updateMousePos();
        

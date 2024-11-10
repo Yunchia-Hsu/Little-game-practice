@@ -8,6 +8,8 @@ Game::Game()
     this->initVariables();
     this->initWindow();
     this->initenemies();
+    this->initFonts();
+    this->initText();
 }
 
 Game::~Game()
@@ -28,6 +30,38 @@ void Game::spawnEnemy()
    (//  在０跟視窗寬度間取隨機 －自己本身的寬度
     static_cast<float>(rand() % static_cast<int>(this->window->getSize().x - this->enemy.getSize().x)),
     0.f);
+
+    //randomize enemy type
+    int type = rand() %5;
+    switch(type)
+    {
+        case 0:
+            this->enemy.setSize(sf::Vector2f(10.f, 20.f));
+            this->enemy.setFillColor(sf::Color::Magenta);
+            break;
+        case 1:
+            this->enemy.setSize(sf::Vector2f(30.f, 50.f));
+            this->enemy.setFillColor(sf::Color::Red);
+            break;
+        case 2:
+            this->enemy.setSize(sf::Vector2f(40.f, 40.f));
+            this->enemy.setFillColor(sf::Color::Blue);
+            break;
+        case 3:
+            this->enemy.setSize(sf::Vector2f(100.f, 100.f));
+            this->enemy.setFillColor(sf::Color::Cyan);
+            break;
+        case 4:
+            this->enemy.setSize(sf::Vector2f(55.f, 40.f));
+            this->enemy.setFillColor(sf::Color::Green);
+            break;
+        default:
+            this->enemy.setSize(sf::Vector2f(100.f, 100.f));
+            this->enemy.setFillColor(sf::Color::Yellow);
+            break;
+    }
+
+
    this->enemy.setFillColor(sf::Color(176, 167, 194));
    //spawn enemy
    this->enemies.push_back(this->enemy);
@@ -123,7 +157,17 @@ void Game::pollEvents()
     }
     
        
- }
+}
+
+void Game::updateText()
+{
+    std::stringstream ss;
+    ss << "Point: " << this->points<< "\n"
+    << "Health: " << this->health << "\n";
+    this->uiText.setString(ss.str());
+    
+}
+
 
 void Game::update()
 {
@@ -134,6 +178,7 @@ void Game::update()
         this->updateMousePos();  
         //relatice to the window
           
+        this->updateText();  
         this->updateEnemies();
     }
    
@@ -141,15 +186,16 @@ void Game::update()
    if (this->health <= 0)
    {
         this->endgame = true;
-   }
-
-   
-
-   
+   } 
 }
 const bool Game::getEndgame() const
 {
     return (this->endgame);
+}
+
+void Game::renderText(sf::RenderTarget &target)
+{
+    target.draw(this->uiText);
 }
 
 void Game::updateMousePos()
@@ -184,6 +230,7 @@ void Game::render()
     //drawcgame object 
     this->window->draw(this->enemy);
     this->renderEnemies();
+    this->renderText(*this->window);
     this->window->display();
 }
 
@@ -211,7 +258,7 @@ const bool Game::running() const
 void Game::initenemies()
 {
     this->enemy.setPosition(10.f,5.f);
-    this->enemy.setSize(sf::Vector2f(50.f, 50.f));
+    this->enemy.setSize(sf::Vector2f(65.f, 65.f));
     this->enemy.setScale(sf::Vector2f(0.5f, 0.5f));
     this->enemy.setFillColor(sf::Color(181 , 163, 77));
     this->enemy.setOutlineColor(sf::Color(208, 237, 213));
@@ -235,6 +282,21 @@ void Game::initWindow()
    
 }
 
+void Game::initFonts()
+{
+   if ( this->font.loadFromFile("fonts/Dosis-Light.ttf"))
+   {
+        std::cout << "Failed to load font" << "\n";
+   }
+}
+
+void Game::initText()
+{
+    this->uiText.setFont(this->font);
+    this->uiText.setCharacterSize(36);
+    this->uiText.setFillColor(sf::Color::Black);
+    this->uiText.setString("test text");
+}
 
 //using namespace sf;
 
